@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        
+        
+        <h2 class="accounts-heading">Accounts</h2>
+
+        <div class="import-link">
+            <a href="{% url 'import_accounts' %}" class="btn-import">Import Accounts</a>
+            <a href="{% url 'transfer_funds' %}" class="btn-transfer">Transfer Funds</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.balance }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span>Page:</span>
+            {% for i in custom_range %}
+                <a href="?page={{ i }}" {% if i == request.GET.page|default:1 %}class="active"{% endif %}>{{ i }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
